@@ -1,4 +1,4 @@
-package main.model.Goals;
+package main.model.goals;
 
 public class PriorityLevel {
 }

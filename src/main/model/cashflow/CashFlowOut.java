@@ -1,4 +1,4 @@
-package main.model.CashFlow;
+package main.model.cashflow;
 
 public class CashFlowOut {
 }
