@@ -2,6 +2,7 @@ package main.model;
 
 public enum Status {
     INCOME("Income"),
+    RECURRING_BILLS("Recurring Bills"),
     TO_PURCHASE("To Purchase"),
     WORKING_TOWARDS("Working Towards"),
     PURCHASED("Purchased");

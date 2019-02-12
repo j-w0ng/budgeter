@@ -12,14 +12,14 @@ import java.util.HashSet;
 
 public class Transactions {
 
-    private Set<CategoryTag> tags;
-    private CategoryTag tag;
-    private double amount;
-    private Status status;
+    protected Set<CategoryTag> tags;
+    protected CategoryTag tag;
+    protected double amount;
+    protected Status status;
 
     // MODIFIES: this
     // EFFECTS: constructs a Transaction with default values
-    public Transactions() {
+    protected Transactions() {
         tags = new HashSet<>();
         amount = 0;
         status = Status.TO_PURCHASE;
