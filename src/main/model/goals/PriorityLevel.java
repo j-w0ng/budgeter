@@ -1,7 +1,5 @@
 package main.model.goals;
 
-
-
 public class PriorityLevel {
 
     private boolean essential;
@@ -35,7 +33,7 @@ public class PriorityLevel {
 
     // MODIFIES: this
     // EFFECTS: updates the importance of PriorityLevel
-    public void setimportace(boolean importance) {
+    public void setImportace(boolean importance) {
         this.importance = importance;
 
     }
