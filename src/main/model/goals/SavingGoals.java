@@ -13,31 +13,40 @@ public class SavingGoals extends Transactions {
     private String description;
     private PurchaseByDate purchaseByDate;
     private double amountContributed;
+    private double amountLeft;
     private PriorityLevel priorityLevel;
     private int progress;
 
     // MODIFIES: this
     // EFFECTS: constructs a SavingGoals with default values
-    public SavingGoals() {
+    public SavingGoals(String description, double amount) {
+        this.description = description;
         tags = new HashSet<>();
         purchaseByDate = new PurchaseByDate();
-        amount = 0;
+        this.amount = amount;
         amountContributed = 0;
         status = Status.TO_PURCHASE;
         priorityLevel = new PriorityLevel(false, false);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds amount to amountContributed
+    //          throws NegativeAmountException if amount < 0
     public void contribution(double amount) {
         if (amount < 0) {
             throw new NegativeAmountException();
         }
-        if (amount + amountContributed > amount) {
-            amountContributed = amount;
+        if (amount + amountContributed > this.amount) {
             CashFlowIn newIncome = new CashFlowIn();
-            newIncome.setAmount(amount + amountContributed - amount);
+            newIncome.setAmount(amount + amountContributed - this.amount);
+            amountContributed = this.amount;
+            amountLeft = this.amount - amountContributed;
+            progress = (int) Math.round(amountContributed * 100 / this.amount);
+        } else {
+            amountContributed += amount;
+            amountLeft = this.amount - amountContributed;
+            progress = (int) Math.round(amountContributed * 100 / this.amount);
         }
-        amountContributed += amount;
-        progress = (int) Math.round(amountContributed * 100/amount);
     }
 
     // MODIFIES: this
@@ -69,9 +78,19 @@ public class SavingGoals extends Transactions {
         return purchaseByDate;
     }
 
+    // EFFECTS: gets AmountLeft of SavingGoal
+    public double getAmountLeft() {
+        return amountLeft;
+    }
+
     // EFFECTS: gets priorityLevel of SavingGoal
     public PriorityLevel getPriorityLevel() {
         return priorityLevel;
+    }
+
+    // EFFECTS: gets priorityLevel of SavingGoal
+    public double getAmountContributed() {
+        return amountContributed;
     }
 
     // EFFECTS: gets progress of SavingGoal
