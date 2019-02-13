@@ -14,7 +14,7 @@ public class PurchaseByDate {
 
     public PurchaseByDate() {
         purchaseBy = Calendar.getInstance();
-        purchaseBy.set(Calendar.MONTH, Calendar.MONTH + 1);
+        purchaseBy.set(Calendar.MONTH, Calendar.MONTH);
     }
 
     // MODIFIES: this
@@ -65,8 +65,7 @@ public class PurchaseByDate {
     public boolean purchaseByDateLessThanHalfYearAway() {
         Calendar beginningTime = Calendar.getInstance();
         Calendar endTime = Calendar.getInstance();
-        int sixMonthsLater = beginningTime.get(Calendar.MONTH) + 6;
-        endTime.set(Calendar.YEAR, sixMonthsLater, Calendar.DATE);
+        endTime.set(Calendar.MONTH, Calendar.MONTH + 6);
         return !purchaseBy.before(beginningTime) && !purchaseBy.after(endTime);
     }
 
@@ -75,8 +74,7 @@ public class PurchaseByDate {
     public boolean purchaseByDateLessThanThreeMonthsAway() {
         Calendar beginningTime = Calendar.getInstance();
         Calendar endTime = Calendar.getInstance();
-        int threeMonthsLater = beginningTime.get(Calendar.MONTH) + 3;
-        endTime.set(Calendar.YEAR, threeMonthsLater, Calendar.DATE);
+        endTime.set(Calendar.MONTH, Calendar.MONTH + 3);
         return !purchaseBy.before(beginningTime) && !purchaseBy.after(endTime);
     }
 

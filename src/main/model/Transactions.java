@@ -19,7 +19,7 @@ public class Transactions {
 
     // MODIFIES: this
     // EFFECTS: constructs a Transaction with default values
-    protected Transactions() {
+    public Transactions() {
         tags = new HashSet<>();
         amount = 0;
         status = Status.TO_PURCHASE;
