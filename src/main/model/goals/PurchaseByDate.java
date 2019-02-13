@@ -5,9 +5,6 @@ import main.model.exceptions.NullArgumentException;
 import java.util.Calendar;
 import java.util.Date;
 
-import static java.util.Calendar.AM;
-import static java.util.Calendar.PM;
-
 public class PurchaseByDate {
 
     private Calendar purchaseBy;
@@ -18,9 +15,6 @@ public class PurchaseByDate {
     public PurchaseByDate() {
         purchaseBy = Calendar.getInstance();
         purchaseBy.set(Calendar.MONTH, Calendar.MONTH + 1);
-        purchaseBy.set(Calendar.HOUR, 11);
-        purchaseBy.set(Calendar.MINUTE, 59);
-        purchaseBy.set(Calendar.AM_PM, PM);
     }
 
     // MODIFIES: this
@@ -70,15 +64,9 @@ public class PurchaseByDate {
     // and false otherwise
     public boolean purchaseByDateLessThanHalfYearAway() {
         Calendar beginningTime = Calendar.getInstance();
-        beginningTime.set(Calendar.HOUR, 00);
-        beginningTime.set(Calendar.MINUTE, 00);
-        beginningTime.set(Calendar.AM_PM, AM);
         Calendar endTime = Calendar.getInstance();
         int sixMonthsLater = beginningTime.get(Calendar.MONTH) + 6;
         endTime.set(Calendar.YEAR, sixMonthsLater, Calendar.DATE);
-        endTime.set(Calendar.HOUR, 12);
-        endTime.set(Calendar.MINUTE, 59);
-        endTime.set(Calendar.AM_PM, PM);
         return !purchaseBy.before(beginningTime) && !purchaseBy.after(endTime);
     }
 
@@ -86,15 +74,9 @@ public class PurchaseByDate {
     // and false otherwise
     public boolean purchaseByDateLessThanThreeMonthsAway() {
         Calendar beginningTime = Calendar.getInstance();
-        beginningTime.set(Calendar.HOUR, 00);
-        beginningTime.set(Calendar.MINUTE, 00);
-        beginningTime.set(Calendar.AM_PM, AM);
         Calendar endTime = Calendar.getInstance();
         int threeMonthsLater = beginningTime.get(Calendar.MONTH) + 3;
         endTime.set(Calendar.YEAR, threeMonthsLater, Calendar.DATE);
-        endTime.set(Calendar.HOUR, 12);
-        endTime.set(Calendar.MINUTE, 59);
-        endTime.set(Calendar.AM_PM, PM);
         return !purchaseBy.before(beginningTime) && !purchaseBy.after(endTime);
     }
 
