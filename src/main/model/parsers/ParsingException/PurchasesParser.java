@@ -4,9 +4,12 @@ import main.model.Purchases;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PurchasesParser {
+
+    ArrayList<Double> totalsForEachCategory
 
 // fileLocation = "/Users/jonathan/Downloads/December2018_6160.csv"
 
@@ -18,4 +21,5 @@ public class PurchasesParser {
         }
         currentBill.close();
     }
+
 }

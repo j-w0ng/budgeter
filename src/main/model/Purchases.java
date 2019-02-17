@@ -4,13 +4,17 @@ import main.model.parsers.ParsingException.PurchasesParser;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Purchases extends Transactions {
 
-    private ArrayList<Purchases> currentMonthPurchases;
+    private HashMap<String, ArrayList<Double>> purchases;
     private PurchasesParser purchasesParser;
 
     public Purchases() {
+
+        purchases = new HashMap<>();
+
         try {
             purchasesParser = new PurchasesParser("/Users/jonathan/Downloads/December2018_6160.csv",
                                                     this);
@@ -19,5 +23,15 @@ public class Purchases extends Transactions {
         }
     }
 
+    public void setNewCateogry(String string, ArrayList<Double> arrayList) {
+        purchases.put(string, arrayList);
+    }
 
+    public void getCategoryValues(String string) {
+        purchases.get(string);
+    }
+
+    private boolean doesCategoryExist(String string) {
+        return purchases.containsKey(string);
+    }
 }
