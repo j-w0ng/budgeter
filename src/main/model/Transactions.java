@@ -13,7 +13,6 @@ import java.util.HashSet;
 public class Transactions {
 
     protected Set<CategoryTag> tags;
-    protected CategoryTag tag;
     protected double amount;
     protected Status status;
 

@@ -16,22 +16,31 @@ public class Purchases extends Transactions {
         purchases = new HashMap<>();
 
         try {
-            purchasesParser = new PurchasesParser("/Users/jonathan/Downloads/December2018_6160.csv",
+            purchasesParser = new PurchasesParser("/Users/jonathan/Downloads/December2018_6160copy.csv",
                                                     this);
         } catch (FileNotFoundException e) {
             System.out.println("File not Found");
         }
     }
 
-    public void setNewCateogry(String string, ArrayList<Double> arrayList) {
+    public void setNewCategory(String string, ArrayList<Double> arrayList) {
         purchases.put(string, arrayList);
     }
 
-    public void getCategoryValues(String string) {
-        purchases.get(string);
+    public ArrayList<Double> getCategoryValues(String string) {
+        return purchases.get(string);
     }
 
-    private boolean doesCategoryExist(String string) {
+    public boolean doesCategoryExist(String string) {
         return purchases.containsKey(string);
+    }
+
+    public double CategoryTotal(String string) {
+        ArrayList<Double> amounts = purchases.get(string);
+        double total = 0;
+        for (Double d: amounts) {
+            total += d;
+        }
+        return Math.round(total*100.0)/100.0;
     }
 }

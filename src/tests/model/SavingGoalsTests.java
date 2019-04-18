@@ -24,7 +24,7 @@ public class SavingGoalsTests {
     @Test
     void testConstructor() {
         Calendar today = Calendar.getInstance();
-        today.set(Calendar.MONTH, Calendar.MONTH);
+        today.set(Calendar.MONTH, today.get(Calendar.MONTH) + 1);
         assertEquals("Motorcycle", savingGoals.getDescription());
         assertEquals(123.45, savingGoals.getAmount());
         assertEquals(Status.TO_PURCHASE, savingGoals.getStatus());

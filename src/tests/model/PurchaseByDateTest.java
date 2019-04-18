@@ -24,7 +24,7 @@ public class PurchaseByDateTest {
 
     @Test
     void testConstructor() {
-        today.set(Calendar.MONTH, Calendar.MONTH);
+        today.set(Calendar.MONTH, today.get(Calendar.MONTH) + 1);
         assertEquals(today.getTime().getTime(), purchaseByDate.getPurchaseByDate().getTime(), 1000);
     }
 
@@ -76,14 +76,14 @@ public class PurchaseByDateTest {
     @Test
     void testPostponeOneMonth() {
         purchaseByDate.postponeOneMonth();
-        today.set(Calendar.MONTH, Calendar.MONTH + 1);
+        today.set(Calendar.MONTH, today.get(Calendar.MONTH) + 2);
         assertEquals(today.getTime().getTime(), purchaseByDate.getPurchaseByDate().getTime(), 1000);
     }
 
     @Test
     void testPostponeOneYear() {
         purchaseByDate.postponeOneYear();
-        today.set(Calendar.MONTH, Calendar.MONTH + 12);
+        today.set(Calendar.MONTH, today.get(Calendar.MONTH) + 13);
         assertEquals(today.getTime().getTime(), purchaseByDate.getPurchaseByDate().getTime(), 1000);
     }
 
@@ -103,7 +103,7 @@ public class PurchaseByDateTest {
 
     @Test
     void testPurchaseByDateLessThanHalfYearAway() {
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             purchaseByDate.postponeOneMonth();
             assertTrue(purchaseByDate.purchaseByDateLessThanHalfYearAway());
         }
@@ -113,7 +113,7 @@ public class PurchaseByDateTest {
 
     @Test
     void testPurchaseByDateLessThanThreeMonthsAway() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             purchaseByDate.postponeOneMonth();
             assertTrue(purchaseByDate.purchaseByDateLessThanThreeMonthsAway());
         }
@@ -123,7 +123,7 @@ public class PurchaseByDateTest {
 
     @Test
     void testToString() {
-        today.set(Calendar.MONTH, Calendar.MONTH);
+        today.set(Calendar.MONTH, today.get(Calendar.MONTH) + 1);
         String firstPart = today.getTime().toString().substring(0, 10);
         String secondPart = today.getTime().toString().substring(24);
         assertEquals(firstPart + " " + secondPart, purchaseByDate.toString());

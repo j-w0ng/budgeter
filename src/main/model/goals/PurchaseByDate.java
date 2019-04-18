@@ -5,6 +5,8 @@ import main.model.exceptions.NullArgumentException;
 import java.util.Calendar;
 import java.util.Date;
 
+import static java.util.Calendar.MONTH;
+
 public class PurchaseByDate {
 
     private Calendar purchaseBy;
@@ -14,7 +16,7 @@ public class PurchaseByDate {
 
     public PurchaseByDate() {
         purchaseBy = Calendar.getInstance();
-        purchaseBy.set(Calendar.MONTH, Calendar.MONTH);
+        purchaseBy.set(MONTH, purchaseBy.get(Calendar.MONTH) + 1);
     }
 
     // MODIFIES: this
@@ -65,7 +67,7 @@ public class PurchaseByDate {
     public boolean purchaseByDateLessThanHalfYearAway() {
         Calendar beginningTime = Calendar.getInstance();
         Calendar endTime = Calendar.getInstance();
-        endTime.set(Calendar.MONTH, Calendar.MONTH + 6);
+        endTime.set(MONTH, Calendar.getInstance().get(MONTH) + 6);
         return !purchaseBy.before(beginningTime) && !purchaseBy.after(endTime);
     }
 
@@ -74,7 +76,7 @@ public class PurchaseByDate {
     public boolean purchaseByDateLessThanThreeMonthsAway() {
         Calendar beginningTime = Calendar.getInstance();
         Calendar endTime = Calendar.getInstance();
-        endTime.set(Calendar.MONTH, Calendar.MONTH + 3);
+        endTime.set(MONTH, Calendar.getInstance().get(MONTH) + 3);
         return !purchaseBy.before(beginningTime) && !purchaseBy.after(endTime);
     }
 
