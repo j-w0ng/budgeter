@@ -1,4 +1,4 @@
-package main.model.exceptions;
+package main.exceptions;
 
 public class EmptyStringException extends IllegalArgumentException {
         public EmptyStringException() {

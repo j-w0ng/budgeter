@@ -1,16 +1,15 @@
-package main.model.goals;
+package main.goals;
 
-import main.model.Status;
-import main.model.Transactions;
-import main.model.cashflow.CashFlowIn;
-import main.model.exceptions.NegativeAmountException;
+import main.exceptions.NegativeAmountException;
+import main.Status;
+import main.Transactions;
+import main.cashflow.CashFlowIn;
 
 import java.util.Date;
 import java.util.HashSet;
 
 public class SavingGoals extends Transactions {
 
-    private String description;
     private PurchaseByDate purchaseByDate;
     private double amountContributed;
     private double amountLeft;
@@ -20,7 +19,7 @@ public class SavingGoals extends Transactions {
     // MODIFIES: this
     // EFFECTS: constructs a SavingGoals with default values
     public SavingGoals(String description, double amount) {
-        this.description = description;
+        super(description);
         tags = new HashSet<>();
         purchaseByDate = new PurchaseByDate();
         this.amount = amount;

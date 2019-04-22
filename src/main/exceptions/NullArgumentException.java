@@ -1,4 +1,4 @@
-package main.model.exceptions;
+package main.exceptions;
 
 public class NullArgumentException extends IllegalArgumentException {
 

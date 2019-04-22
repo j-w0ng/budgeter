@@ -1,6 +1,6 @@
-package main.model.parsers.ParsingException;
+package main.parsers;
 
-import main.model.Purchases;
+import main.Purchases;
 
 import java.io.File;
 import java.io.FileNotFoundException;

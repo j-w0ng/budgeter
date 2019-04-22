@@ -1,7 +1,7 @@
 package tests.model;
 
-import main.model.exceptions.NullArgumentException;
-import main.model.goals.PurchaseByDate;
+import main.exceptions.NullArgumentException;
+import main.goals.PurchaseByDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -97,7 +97,7 @@ public class PurchaseByDateTest {
     @Test
     void testisOverDueNotOverDue() {
         today.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH + 14);
-        purchaseByDate.setPurchaseByDate(today.getTime());
+
         assertFalse(purchaseByDate.isOverdue());
     }
 

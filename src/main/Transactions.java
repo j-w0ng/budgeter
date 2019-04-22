@@ -1,8 +1,8 @@
-package main.model;
+package main;
 
-import main.model.exceptions.EmptyStringException;
-import main.model.exceptions.NullArgumentException;
-import main.model.exceptions.NegativeAmountException;
+import main.exceptions.NegativeAmountException;
+import main.exceptions.EmptyStringException;
+import main.exceptions.NullArgumentException;
 
 import java.util.Collections;
 import java.util.Set;
@@ -12,16 +12,18 @@ import java.util.HashSet;
 
 public class Transactions {
 
+    protected String description;
     protected Set<CategoryTag> tags;
     protected double amount;
     protected Status status;
 
     // MODIFIES: this
     // EFFECTS: constructs a Transaction with default values
-    public Transactions() {
+    public Transactions(String description) {
         tags = new HashSet<>();
         amount = 0;
         status = Status.TO_PURCHASE;
+        this.description = description;
     }
 
 
@@ -107,6 +109,10 @@ public class Transactions {
             }
         }
         return containsTag;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
 }

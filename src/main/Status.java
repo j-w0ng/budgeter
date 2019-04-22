@@ -1,10 +1,10 @@
-package main.model;
+package main;
 
 public enum Status {
     INCOME("Income"),
     RECURRING_BILLS("Recurring Bills"),
+    CREDITCARD_BILL("CreditCard Bill"),
     TO_PURCHASE("To Purchase"),
-    WORKING_TOWARDS("Working Towards"),
     PURCHASED("Purchased");
 
     private String description;

@@ -1,23 +1,27 @@
-package main.model;
+package main;
 
-import main.model.parsers.ParsingException.PurchasesParser;
+import main.parsers.PurchasesParser;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class Purchases extends Transactions {
 
     private HashMap<String, ArrayList<Double>> purchases;
-    private PurchasesParser purchasesParser;
 
-    public Purchases() {
 
+    public Purchases(String fileLocation, String description) {
+        super(description);
         purchases = new HashMap<>();
+        status = Status.CREDITCARD_BILL;
+        CategoryTag tag = new CategoryTag("MBNA");
+        tags.add(tag);
 
         try {
-            purchasesParser = new PurchasesParser("/Users/jonathan/Downloads/December2018_6160copy.csv",
-                                                    this);
+            PurchasesParser purchasesParser = new PurchasesParser(fileLocation, this);
+            amount = totalBill();
         } catch (FileNotFoundException e) {
             System.out.println("File not Found");
         }
@@ -42,5 +46,16 @@ public class Purchases extends Transactions {
             total += d;
         }
         return Math.round(total*100.0)/100.0;
+    }
+
+    private double totalBill() {
+        double totalAmount = 0;
+        Collection<ArrayList<Double>> amounts = purchases.values();
+        for (ArrayList<Double> a: amounts) {
+            for (Double d: a) {
+                totalAmount += d;
+            }
+        }
+        return Math.round(totalAmount*100.0)/100.0;
     }
 }

@@ -1,10 +1,10 @@
 package tests.model;
 
-import main.model.Status;
-import main.model.Transactions;
-import main.model.exceptions.EmptyStringException;
-import main.model.exceptions.NegativeAmountException;
-import main.model.exceptions.NullArgumentException;
+import main.Status;
+import main.Transactions;
+import main.exceptions.EmptyStringException;
+import main.exceptions.NegativeAmountException;
+import main.exceptions.NullArgumentException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ public class TransactionsTests {
 
     @BeforeEach
     void setup() {
-        transactions = new Transactions();
+        transactions = new Transactions("test");
     }
 
     @Test

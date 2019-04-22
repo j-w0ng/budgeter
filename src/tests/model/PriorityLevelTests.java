@@ -1,6 +1,6 @@
 package tests.model;
 
-import main.model.goals.PriorityLevel;
+import main.goals.PriorityLevel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

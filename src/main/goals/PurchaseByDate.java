@@ -1,6 +1,6 @@
-package main.model.goals;
+package main.goals;
 
-import main.model.exceptions.NullArgumentException;
+import main.exceptions.NullArgumentException;
 
 import java.util.Calendar;
 import java.util.Date;

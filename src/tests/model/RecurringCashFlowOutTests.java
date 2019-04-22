@@ -1,8 +1,8 @@
 package tests.model;
 
-import main.model.Status;
-import main.model.Transactions;
-import main.model.cashflow.RecurringCashFlowOut;
+import main.Status;
+import main.Transactions;
+import main.cashflow.RecurringCashFlowOut;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,8 +13,8 @@ public class RecurringCashFlowOutTests {
 
     @Test
     void testConstructor() {
-        bills = new RecurringCashFlowOut();
-        assertEquals(0, bills.getAmount());
+        bills = new RecurringCashFlowOut("cable", 20);
+        assertEquals(20, bills.getAmount());
         assertEquals(Status.RECURRING_BILLS, bills.getStatus());
     }
 

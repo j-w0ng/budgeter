@@ -1,6 +1,8 @@
-package main.model;
+package main;
 
-import main.model.exceptions.EmptyStringException;
+import main.exceptions.EmptyStringException;
+
+import java.util.Objects;
 
 public class CategoryTag {
 
@@ -28,4 +30,16 @@ public class CategoryTag {
         return "#" + name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CategoryTag)) return false;
+        CategoryTag that = (CategoryTag) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

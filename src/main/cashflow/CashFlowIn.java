@@ -1,8 +1,8 @@
-package main.model.cashflow;
+package main.cashflow;
 
-import main.model.CategoryTag;
-import main.model.Status;
-import main.model.Transactions;
+import main.Status;
+import main.CategoryTag;
+import main.Transactions;
 
 import java.util.HashSet;
 
@@ -11,6 +11,7 @@ public class CashFlowIn extends Transactions {
     // MODIFIES: this
     // EFFECTS: constructs a CashFlowIn with default values
     public CashFlowIn() {
+        super("Income");
         tags = new HashSet<>();
         amount = 0;
         status = Status.INCOME;

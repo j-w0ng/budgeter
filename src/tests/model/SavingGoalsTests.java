@@ -1,8 +1,8 @@
 package tests.model;
 
-import main.model.Status;
-import main.model.exceptions.NegativeAmountException;
-import main.model.goals.SavingGoals;
+import main.Status;
+import main.exceptions.NegativeAmountException;
+import main.goals.SavingGoals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

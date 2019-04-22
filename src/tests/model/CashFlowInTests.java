@@ -1,9 +1,9 @@
 package tests.model;
 
-import main.model.Transactions;
-import main.model.Status;
+import main.Transactions;
+import main.Status;
 
-import main.model.cashflow.CashFlowIn;
+import main.cashflow.CashFlowIn;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,7 +1,7 @@
 package tests.model;
 
-import main.model.CategoryTag;
-import main.model.exceptions.EmptyStringException;
+import main.CategoryTag;
+import main.exceptions.EmptyStringException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
