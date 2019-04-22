@@ -16,5 +16,11 @@ public class RecurringCashFlowOut extends Transactions {
         status = Status.RECURRING_BILLS;
     }
 
+    @Override
+    public String toString() {
+        return "Description: " + description + '\n' +
+                "Amount: " + amount + "\n" +
+                "Tags: " + tags;
+    }
 
 }

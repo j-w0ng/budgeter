@@ -3,9 +3,7 @@ package main;
 import main.parsers.PurchasesParser;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 
 public class Purchases extends Transactions {
 
@@ -57,5 +55,27 @@ public class Purchases extends Transactions {
             }
         }
         return Math.round(totalAmount*100.0)/100.0;
+    }
+
+    @Override
+    public String toString() {
+        Set<String> categories = purchases.keySet();
+        String output = "";
+        for (String s: categories) {
+            output = output.concat("\t" + s.toLowerCase() + ": $" + total(purchases.get(s)) * -1 + "\n");
+        }
+        return "Description: " + description + "\n" +
+                "Category split this month: " + "\n" +
+                output +
+                "Total Amount: $" + amount * -1 + "\n" +
+                "Tags: " + tags;
+    }
+
+    private double total(List<Double> d) {
+        double total = 0;
+        for (Double toAdd: d) {
+            total += toAdd;
+        }
+        return Math.round(total*100.0)/100.0;
     }
 }

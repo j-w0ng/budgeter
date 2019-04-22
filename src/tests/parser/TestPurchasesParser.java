@@ -26,5 +26,6 @@ public class TestPurchasesParser {
         assertEquals(-605.31, purchases.getAmount());
         assertTrue(purchases.getTags().contains(new CategoryTag("MBNA")));
         assertEquals(Status.CREDITCARD_BILL, purchases.getStatus());
+        System.out.println(purchases.toString());
     }
 }

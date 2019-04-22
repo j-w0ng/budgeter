@@ -19,5 +19,10 @@ public class CashFlowIn extends Transactions {
         tags.add(incomeTag);
     }
 
-
+    @Override
+    public String toString() {
+        return "Description: " + description + '\n' +
+                "Amount: " + amount + "\n" +
+                "Tags: " + tags;
+    }
 }

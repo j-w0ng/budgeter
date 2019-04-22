@@ -97,4 +97,13 @@ public class SavingGoals extends Transactions {
         return progress;
     }
 
+    @Override
+    public String toString() {
+        return "Description: " + description + "\n" +
+                "Purchase By:" + purchaseByDate + "\n" +
+                "Amount Left: " + amountLeft + "\n" +
+                "Priority Level: " + priorityLevel + "\n" +
+                "Progress: " + progress + "%" + "\n" +
+                "Tags: " + tags;
+    }
 }

@@ -42,6 +42,7 @@ public class ConsoleApplication {
     private static void displayTransactionDetails() {
         for (Transactions t: transactionsList) {
             System.out.println(t);
+            System.out.println();
         }
         pressEnterToContinue();
     }
@@ -116,30 +117,30 @@ public class ConsoleApplication {
     private static void displayTransactions() {
         System.out.println("\n");
         System.out.println("------------------------------");
-        System.out.println("\tMy Budgetting App");
+        System.out.println("\tMy Budgeting App");
         System.out.println("------------------------------");
-        displayPendingTasks();
+        displayAllTransactions();
         displayMenu();
     }
 
     private static void displayMenu() {
         System.out.println("You can ...");
         System.out.println("\tEnter A to add Transaction;");
-        System.out.println("\tEnter D to show previous Transactions;");
+        System.out.println("\tEnter D to show Transaction Details;");
         System.out.println("\tEnter Q to quit.");
         System.out.print("> ");
     }
 
-    private static void displayPendingTasks() {
+    private static void displayAllTransactions() {
         if (transactionsList.isEmpty()) {
             System.out.println("Add some transactions!");
         } else {
-            displayTasks(transactionsList);
+            displayTransactions(transactionsList);
         }
         System.out.println("------------------------------");
     }
 
-    private static void displayTasks(List<Transactions> transactions) {
+    private static void displayTransactions(List<Transactions> transactions) {
         for (int i = 0; i < transactions.size(); i++) {
             System.out.printf("%3d. %s\n", i + 1, transactions.get(i).getDescription());
         }
