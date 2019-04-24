@@ -26,6 +26,9 @@ public class GSON {
         Gson gson = new Gson();
         try {
             List<String> transactionListOfString = Files.readAllLines(jsonDataFile.toPath());
+            if (transactionListOfString.isEmpty()) {
+                return null;
+            }
             StringBuilder inputString = new StringBuilder();
             for (String line: transactionListOfString) {
                 inputString.append(line);

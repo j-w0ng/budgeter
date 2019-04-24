@@ -10,19 +10,16 @@ public class Purchases extends Transactions {
     private HashMap<String, ArrayList<Double>> purchases;
 
 
-    public Purchases(String fileLocation, String description) {
+    public Purchases(String fileLocation, String description) throws FileNotFoundException  {
         super(description);
         purchases = new HashMap<>();
         status = Status.CREDITCARD_BILL;
         CategoryTag tag = new CategoryTag("MBNA");
         tags.add(tag);
 
-        try {
-            PurchasesParser purchasesParser = new PurchasesParser(fileLocation, this);
-            amount = totalBill();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not Found");
-        }
+        PurchasesParser purchasesParser = new PurchasesParser(fileLocation, this);
+        amount = totalBill();
+
     }
 
     public void setNewCategory(String string, ArrayList<Double> arrayList) {

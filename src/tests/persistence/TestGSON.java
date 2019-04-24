@@ -5,8 +5,11 @@ import main.Transactions;
 import main.persistence.GSON;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestGSON {
 
@@ -15,8 +18,12 @@ public class TestGSON {
     @Test
     void testConstructor() {
         List<Transactions> transactions = new LinkedList<>();
-        Purchases p = new Purchases(fileLocation, "December Bill");
-        transactions.add(p);
+        try {
+            Purchases p = new Purchases(fileLocation, "December Bill");
+            transactions.add(p);
+        } catch (FileNotFoundException e) {
+            fail();
+        }
         GSON.write(transactions);
     }
 }

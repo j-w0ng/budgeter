@@ -4,6 +4,7 @@ import main.cashflow.RecurringCashFlowOut;
 import main.goals.SavingGoals;
 import main.persistence.GSON;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -99,8 +100,13 @@ public class ConsoleApplication {
         String s = userInput;
         String description = s.substring(0, s.indexOf(";"));
         String location = s.substring(s.indexOf(";") + 1);
-        Purchases p = new Purchases(location, description);
-        transactionsList.add(p);
+        try {
+            Purchases p = new Purchases(location, description);
+            transactionsList.add(p);
+        } catch (FileNotFoundException e) {
+            System.out.println("Try Again");
+            addStatement();
+        }
     }
 
     private static void addSavingGoal() {
