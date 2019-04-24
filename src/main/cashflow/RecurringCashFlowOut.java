@@ -19,7 +19,7 @@ public class RecurringCashFlowOut extends Transactions {
     @Override
     public String toString() {
         return "Description: " + description + '\n' +
-                "Amount: " + amount + "\n" +
+                "Amount: $" + amount + "\n" +
                 "Tags: " + tags;
     }
 

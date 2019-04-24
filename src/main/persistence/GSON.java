@@ -72,7 +72,7 @@ public class GSON {
                 case "creditcard_bill":
                     transactionsList.add(gson.fromJson(String.valueOf(object), Purchases.class));
                     break;
-                case "to_purchase:":
+                case "to_purchase":
                     transactionsList.add(gson.fromJson(String.valueOf(object), SavingGoals.class));
                     break;
                 case "purchased":

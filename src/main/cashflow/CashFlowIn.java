@@ -10,10 +10,10 @@ public class CashFlowIn extends Transactions {
 
     // MODIFIES: this
     // EFFECTS: constructs a CashFlowIn with default values
-    public CashFlowIn() {
+    public CashFlowIn(double amount) {
         super("Income");
         tags = new HashSet<>();
-        amount = 0;
+        this.amount = amount;
         status = Status.INCOME;
         CategoryTag incomeTag = new CategoryTag("Income");
         tags.add(incomeTag);
@@ -22,7 +22,7 @@ public class CashFlowIn extends Transactions {
     @Override
     public String toString() {
         return "Description: " + description + '\n' +
-                "Amount: " + amount + "\n" +
+                "Amount: $" + amount + "\n" +
                 "Tags: " + tags;
     }
 }

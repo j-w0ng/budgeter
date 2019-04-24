@@ -3,12 +3,12 @@ package main;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import main.cashflow.CashFlowIn;
+import main.cashflow.RecurringCashFlowOut;
+import main.goals.SavingGoals;
 import main.persistence.GSON;
 
 import java.io.FileNotFoundException;
@@ -19,7 +19,8 @@ public class Main extends Application {
 
     private static List<Transactions> transactionsList;
     private Stage primaryStage;
-    private Scene openScreen, addScene, moreInfoScene, ccStatementScene, errorScene, detailsScene;
+    private Scene openScreen, addScene, moreInfoScene, ccStatementScene, errorScene,
+            detailsScene, incomeScene, recurringBillScene, savingGoalScene;
 
     private final int verticalPadding = 20;
     private final int screenWidth = 500;
@@ -62,14 +63,19 @@ public class Main extends Application {
 
         Label l = new Label("Select Transaction from Dropdown for More Information");
 
-        ChoiceBox<String> choiceBox = new ChoiceBox<>();
-        choiceBox.getItems().addAll(allItems);
+        ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.getItems().addAll(allItems);
+        comboBox.setPromptText("choose one");
+        comboBox.setVisibleRowCount(8);
 
         Button select = new Button("Select");
-        select.setOnAction(e -> toDetailsScene(choiceBox.getValue()));
+        select.setOnAction(e -> toDetailsScene(comboBox.getValue()));
+
+        Button home = new Button("Home");
+        home.setOnAction(e -> primaryStage.setScene(openScreen));
 
         VBox moreInfoLayout = new VBox(verticalPadding);
-        moreInfoLayout.getChildren().addAll(l, choiceBox, select);
+        moreInfoLayout.getChildren().addAll(l, comboBox, select, home);
         moreInfoLayout.setAlignment(Pos.CENTER);
 
         moreInfoScene = new Scene(moreInfoLayout, screenWidth, screenHeight);
@@ -79,13 +85,13 @@ public class Main extends Application {
 
     private void toDetailsScene(String s) {
         Transactions moreInfo = null;
-        for (Transactions t: transactionsList) {
+        for (Transactions t : transactionsList) {
             if (t.getDescription().equals(s)) {
                 moreInfo = t;
             }
         }
 
-        Label l = new Label (moreInfo.toString());
+        Label l = new Label(moreInfo.toString());
 
         Button home = new Button("Home");
         home.setOnAction(e -> primaryStage.setScene(openScreen));
@@ -105,15 +111,17 @@ public class Main extends Application {
         addFromCCStatement = new Button("Credit Card Statement");
         addFromCCStatement.setOnAction(e -> toCCStatementScene());
         addIncomeSource = new Button("Source of Income");
-        addIncomeSource.setOnAction(e -> System.out.println("Income"));
+        addIncomeSource.setOnAction(e -> toIncomeScene());
         addRecurringBills = new Button("Recurring Bills");
-        addRecurringBills.setOnAction(e -> System.out.println("Recurring Bill"));
+        addRecurringBills.setOnAction(e -> toRecurringBillScene());
         addSavingGoal = new Button("Saving Goal");
-        addSavingGoal.setOnAction(e -> System.out.println("Savings"));
+        addSavingGoal.setOnAction(e -> toSavingGoalScene());
+        Button home = new Button("Home");
+        home.setOnAction(e -> primaryStage.setScene(openScreen));
 
         VBox addLayout = new VBox(verticalPadding);
         addLayout.setAlignment(Pos.CENTER);
-        addLayout.getChildren().addAll(addFromCCStatement, addIncomeSource, addRecurringBills, addSavingGoal);
+        addLayout.getChildren().addAll(addFromCCStatement, addIncomeSource, addRecurringBills, addSavingGoal, home);
 
         addScene = new Scene(addLayout, screenWidth, screenHeight);
         primaryStage.setScene(addScene);
@@ -122,7 +130,9 @@ public class Main extends Application {
     }
 
     private void toCCStatementScene() {
+        Label descriptionLabel = new Label("Description:");
         TextField description = new TextField();
+        Label locationLabel = new Label("File Location:");
         TextField location = new TextField();
 
         Button addCCStatement = new Button("Add");
@@ -132,13 +142,13 @@ public class Main extends Application {
                 transactionsList.add(p);
                 primaryStage.setScene(openScreen);
             } catch (FileNotFoundException ex) {
-                errorScene();
+                errorScene("Sorry, could not find file", ccStatementScene);
             }
         });
 
         VBox ccStatementLayout = new VBox(verticalPadding);
         ccStatementLayout.setAlignment(Pos.CENTER);
-        ccStatementLayout.getChildren().addAll(description, location, addCCStatement);
+        ccStatementLayout.getChildren().addAll(descriptionLabel, description, locationLabel, location, addCCStatement);
 
         ccStatementScene = new Scene(ccStatementLayout, screenWidth, screenHeight);
         primaryStage.setScene(ccStatementScene);
@@ -146,11 +156,132 @@ public class Main extends Application {
 
     }
 
-    private void errorScene() {
-        Label l = new Label("Sorry, could not find file. \n " +
+
+    private void toIncomeScene() {
+        Label amountLabel = new Label("Amount per Month");
+        TextField amount = new TextField();
+        Label tagsLabel = new Label("Identifying Tags - separate with semi-colon");
+        TextField tags = new TextField();
+
+        Button addIncome = new Button("Add");
+        addIncome.setOnAction(e -> {
+            try {
+                double doubleAmount = Double.valueOf(amount.getText());
+                CashFlowIn income = new CashFlowIn(doubleAmount);
+                String[] tagsToAdd = tags.getText().split(";");
+                if (tagsToAdd.length != 0) {
+                    for (String s : tagsToAdd) {
+                        income.addTag(s);
+                    }
+                }
+                transactionsList.add(income);
+                primaryStage.setScene(openScreen);
+            } catch (NumberFormatException d) {
+                errorScene("Sorry, amount could not be read", incomeScene);
+            }
+        });
+
+        VBox incomeLayout = new VBox(verticalPadding);
+        incomeLayout.setAlignment(Pos.CENTER);
+        incomeLayout.getChildren().addAll(amountLabel, amount, tagsLabel, tags, addIncome);
+
+        incomeScene = new Scene(incomeLayout, screenWidth, screenHeight);
+        primaryStage.setScene(incomeScene);
+        primaryStage.show();
+    }
+
+
+    private void toRecurringBillScene() {
+        Label descriptionLabel = new Label("Description");
+        TextField description = new TextField();
+        Label amountLabel = new Label("Amount per Month");
+        TextField amount = new TextField();
+        Label tagsLabel = new Label("Identifying Tags - separate with semi-colon");
+        TextField tags = new TextField();
+
+        Button addBill = new Button("Add");
+        addBill.setOnAction(e -> {
+            try {
+                double doubleAmount = Double.valueOf(amount.getText());
+                RecurringCashFlowOut expense = new RecurringCashFlowOut(description.getText(), doubleAmount);
+                String[] tagsToAdd = tags.getText().split(";");
+                if (tagsToAdd.length != 0) {
+                    for (String s : tagsToAdd) {
+                        expense.addTag(s);
+                    }
+                }
+                transactionsList.add(expense);
+                primaryStage.setScene(openScreen);
+            } catch (NumberFormatException d) {
+                errorScene("Sorry, amount could not be read", incomeScene);
+            }
+        });
+
+        VBox recurringBillLayout = new VBox(verticalPadding);
+        recurringBillLayout.setAlignment(Pos.CENTER);
+        recurringBillLayout.getChildren().addAll(descriptionLabel, description, amountLabel, amount, tagsLabel, tags, addBill);
+
+        recurringBillScene = new Scene(recurringBillLayout, screenWidth, screenHeight);
+        primaryStage.setScene(recurringBillScene);
+        primaryStage.show();
+    }
+
+    private void toSavingGoalScene() {
+        Label descriptionLabel = new Label("Description");
+        TextField description = new TextField();
+        Label amountLabel = new Label("Amount");
+        TextField amount = new TextField();
+        Label tagsLabel = new Label("Identifying Tags - separate with semi-colon");
+        TextField tags = new TextField();
+
+        Button addGoal = new Button("Add");
+        addGoal.setOnAction(e -> {
+            try {
+                double doubleAmount = Double.valueOf(amount.getText());
+                SavingGoals goal = new SavingGoals(description.getText(), doubleAmount);
+                String[] tagsToAdd = tags.getText().split(";");
+                if (tagsToAdd.length != 0) {
+                    for (String s : tagsToAdd) {
+                        goal.addTag(s);
+                    }
+                }
+                transactionsList.add(goal);
+                primaryStage.setScene(openScreen);
+            } catch (NumberFormatException d) {
+                errorScene("Sorry, amount could not be read", incomeScene);
+            }
+        });
+
+        VBox savingLayout = new VBox(verticalPadding);
+        savingLayout.setAlignment(Pos.CENTER);
+        savingLayout.getChildren().addAll(descriptionLabel, description, amountLabel, amount, tagsLabel, tags, addGoal);
+
+        savingGoalScene = new Scene(savingLayout, screenWidth, screenHeight);
+        primaryStage.setScene(savingGoalScene);
+        primaryStage.show();
+
+    }
+
+
+
+    private void errorScene(String msg, Scene scene) {
+        Label l = new Label(msg + "\n" +
                 "Please try again");
         Button tryAgain = new Button("Try Again");
-        tryAgain.setOnAction(d -> toCCStatementScene());
+        tryAgain.setOnAction(d -> {
+            if (scene.equals(ccStatementScene)) {
+                toCCStatementScene();
+            }
+            if (scene.equals(incomeScene)) {
+                toIncomeScene();
+            }
+            if (scene.equals(recurringBillScene)) {
+                toRecurringBillScene();
+            }
+            if (scene.equals(savingGoalScene)) {
+                toSavingGoalScene();
+            }
+        });
 
         VBox tryAgainLayout = new VBox(verticalPadding);
         tryAgainLayout.setAlignment(Pos.CENTER);

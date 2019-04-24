@@ -23,6 +23,7 @@ public class SavingGoals extends Transactions {
         tags = new HashSet<>();
         purchaseByDate = new PurchaseByDate();
         this.amount = amount;
+        this.amountLeft = amount;
         amountContributed = 0;
         status = Status.TO_PURCHASE;
         priorityLevel = new PriorityLevel(false, false);
@@ -36,7 +37,7 @@ public class SavingGoals extends Transactions {
             throw new NegativeAmountException();
         }
         if (amount + amountContributed > this.amount) {
-            CashFlowIn newIncome = new CashFlowIn();
+            CashFlowIn newIncome = new CashFlowIn(0);
             newIncome.setAmount(amount + amountContributed - this.amount);
             amountContributed = this.amount;
             amountLeft = this.amount - amountContributed;
@@ -101,7 +102,7 @@ public class SavingGoals extends Transactions {
     public String toString() {
         return "Description: " + description + "\n" +
                 "Purchase By:" + purchaseByDate + "\n" +
-                "Amount Left: " + amountLeft + "\n" +
+                "Amount Left: $" + amountLeft + "\n" +
                 "Priority Level: " + priorityLevel + "\n" +
                 "Progress: " + progress + "%" + "\n" +
                 "Tags: " + tags;
