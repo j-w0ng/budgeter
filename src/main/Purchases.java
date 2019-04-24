@@ -34,6 +34,10 @@ public class Purchases extends Transactions {
         return purchases.containsKey(string);
     }
 
+    public Set<String> getCategories() {
+        return purchases.keySet();
+    }
+
     public double CategoryTotal(String string) {
         ArrayList<Double> amounts = purchases.get(string);
         double total = 0;
@@ -43,7 +47,7 @@ public class Purchases extends Transactions {
         return Math.round(total*100.0)/100.0;
     }
 
-    private double totalBill() {
+    public double totalBill() {
         double totalAmount = 0;
         Collection<ArrayList<Double>> amounts = purchases.values();
         for (ArrayList<Double> a: amounts) {

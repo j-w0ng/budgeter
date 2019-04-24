@@ -39,6 +39,7 @@ public class SavingGoals extends Transactions {
         if (amount + amountContributed > this.amount) {
             CashFlowIn newIncome = new CashFlowIn(0);
             newIncome.setAmount(amount + amountContributed - this.amount);
+            status = Status.PURCHASED;
             amountContributed = this.amount;
             amountLeft = this.amount - amountContributed;
             progress = (int) Math.round(amountContributed * 100 / this.amount);
@@ -47,12 +48,6 @@ public class SavingGoals extends Transactions {
             amountLeft = this.amount - amountContributed;
             progress = (int) Math.round(amountContributed * 100 / this.amount);
         }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets description of SavingGoal
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     // MODIFIES: this
