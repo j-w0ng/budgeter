@@ -13,7 +13,7 @@ public class CashFlowInTests {
 
     @Test
     void testConstructor() {
-        income = new CashFlowIn(0);
+        income = new CashFlowIn("Income",0);
         assertEquals(0, income.getAmount());
         assertEquals(Status.INCOME, income.getStatus());
         assertTrue(income.containsTag("Income"));

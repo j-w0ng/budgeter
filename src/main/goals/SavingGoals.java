@@ -37,7 +37,7 @@ public class SavingGoals extends Transactions {
             throw new NegativeAmountException();
         }
         if (amount + amountContributed > this.amount) {
-            CashFlowIn newIncome = new CashFlowIn(0);
+            CashFlowIn newIncome = new CashFlowIn("Over-contribution", 0);
             newIncome.setAmount(amount + amountContributed - this.amount);
             status = Status.PURCHASED;
             amountContributed = this.amount;

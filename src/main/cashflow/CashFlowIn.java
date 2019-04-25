@@ -10,8 +10,8 @@ public class CashFlowIn extends Transactions {
 
     // MODIFIES: this
     // EFFECTS: constructs a CashFlowIn with default values
-    public CashFlowIn(double amount) {
-        super("Income");
+    public CashFlowIn(String description, double amount) {
+        super(description);
         tags = new HashSet<>();
         this.amount = amount;
         status = Status.INCOME;

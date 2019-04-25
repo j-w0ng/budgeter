@@ -171,6 +171,8 @@ public class Main extends Application {
 
 
     private void toIncomeScene() {
+        Label descriptionLabel = new Label("Description");
+        TextField description = new TextField();
         Label amountLabel = new Label("Amount per Month");
         TextField amount = new TextField();
         Label tagsLabel = new Label("Identifying Tags - separate with semi-colon");
@@ -180,7 +182,7 @@ public class Main extends Application {
         addIncome.setOnAction(e -> {
             try {
                 double doubleAmount = Double.valueOf(amount.getText());
-                CashFlowIn income = new CashFlowIn(doubleAmount);
+                CashFlowIn income = new CashFlowIn(description.getText(), doubleAmount);
                 String[] tagsToAdd = tags.getText().split(";");
                 if (tagsToAdd.length != 0) {
                     for (String s : tagsToAdd) {
@@ -196,7 +198,7 @@ public class Main extends Application {
 
         VBox incomeLayout = new VBox(verticalPadding);
         incomeLayout.setAlignment(Pos.CENTER);
-        incomeLayout.getChildren().addAll(amountLabel, amount, tagsLabel, tags, addIncome);
+        incomeLayout.getChildren().addAll(descriptionLabel, description, amountLabel, amount, tagsLabel, tags, addIncome);
 
         incomeScene = new Scene(incomeLayout, screenWidth, screenHeight);
         primaryStage.setScene(incomeScene);
